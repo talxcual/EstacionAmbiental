@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ESTACIÓN AMBIENTAL</string>
+
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Contraseña</string>
+    <string name="button_register">Registrar</string>
+    <string name="button_login">Iniciar Sesión</string>
+    <string name="text_or">O</string>
+    <string name="button_google_signin">Iniciar Sesión con Google</string>
+    <string name="status_auth_initial">Estado de Autenticación</string>
+    <string name="default_web_client_id">1039716438719-7g9hjsmka0l669ed9r5jopnevj5udcln.apps.googleusercontent.com</string>
+
+    <string name="google_signin_cancelled">Inicio de sesión con Google cancelado.</string>
+    <string name="google_signin_network_error">Error de red al iniciar sesión con Google. Revisa tu conexión.</string>
+    <string name="google_signin_failed_generic">Fallo el inicio de sesión con Google: %s</string>
+    <string name="google_auth_success">Inicio de sesión con Google exitoso.</string>
+    <string name="google_auth_success_email">Autenticación Google exitosa: %s</string>
+    <string name="google_auth_collision_error">La cuenta de Google ya está registrada con otro método (ej. email/contraseña).</string>
+    <string name="google_auth_firebase_failed_generic">Fallo la autenticación con Firebase (Google): %s</string>
+
+    <string name="error_email_empty">El email no puede estar vacío.</string>
+    <string name="error_email_empty_status">Error: Email vacío.</string>
+    <string name="error_password_empty">La contraseña no puede estar vacía.</string>
+    <string name="error_password_empty_status">Error: Contraseña vacía.</string>
+
+    <string name="register_success">Registro exitoso para %s</string>
+    <string name="register_success_status">Registro exitoso: %s</string>
+    <string name="error_password_weak_et">Contraseña débil: Mínimo 6 caracteres y más compleja.</string>
+    <string name="error_password_weak_toast">Contraseña demasiado débil. Intenta una más fuerte.</string>
+    <string name="error_email_invalid_et">Formato de email inválido.</string>
+    <string name="error_credentials_invalid_toast">Credenciales inválidas. Email o contraseña incorrectos.</string>
+    <string name="error_email_in_use_et">Este email ya está en uso.</string>
+    <string name="error_email_in_use_toast">Este email ya está registrado. Intenta iniciar sesión.</string>
+    <string name="register_failed_generic">Fallo el registro: %s</string>
+    <string name="register_failed_status">Error de registro: %s</string>
+
+    <string name="login_success">Inicio de sesión exitoso para %s</string>
+    <string name="login_success_status">Inicio de sesión exitoso: %s</string>
+    <string name="login_failed_generic">Fallo el inicio de sesión: %s</string>
+    <string name="login_failed_status">Error de inicio de sesión: %s</string>
+
+    <string name="dialog_submit_evidence_title">Enviar Evidencia de Misión</string>
+    <string name="dialog_submit_evidence_message">Por favor, pega el enlace a tu video de la misión \'%s\':</string>
+    <string name="dialog_submit_evidence_positive_button">Enviar</string>
+    <string name="dialog_cancel_button">Cancelar</string>
+    <string name="toast_evidence_sent_and_completed">Evidencia enviada y misión \'%s\' marcada como completada!</string>
+    <string name="toast_empty_link_error">El enlace no puede estar vacío.</string>
+    <string name="admin_email">klebertoledoamaro@gmail.com</string> <string name="email_subject_evidence">Evidencia de Misión Completada: %s</string>
+    <string name="email_body_evidence">Hola,\n\nAdjunto el enlace a la evidencia de la misión \'%1$s\':\n\n%2$s\n\nSaludos,\nEl patinador.</string>
+    <string name="toast_no_email_app">No se encontró ninguna aplicación de correo instalada.</string>
+</resources>

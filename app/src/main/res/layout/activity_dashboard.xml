@@ -1,0 +1,515 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#121212"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        tools:context=".ui.DashboardActivity">
+
+        <!-- HEADER LAYOUT -->
+        <LinearLayout
+            android:id="@+id/headerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="16dp"
+            android:padding="8dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ESTACIÓN AMBIENTAL"
+                android:textColor="#DEFF9A"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.15" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Consola de Telemetría"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvLastUpdate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Última lectura: Esperando datos..."
+                android:textColor="#888888"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <!-- TEMPERATURE CARD (Top-Left) -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardTemperatura"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            app:cardBackgroundColor="#1E1E1E"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            app:strokeColor="#DEFF9A"
+            app:strokeWidth="1.5dp"
+            app:layout_constraintTop_toBottomOf="@id/headerLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/cardHumedad"
+            app:layout_constraintHorizontal_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🌡️ Temperatura"
+                    android:textColor="#DEFF9A"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvTemperaturaValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="-- °C"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- HUMIDITY CARD (Top-Right) -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardHumedad"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            app:cardBackgroundColor="#1E1E1E"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            app:strokeColor="#DEFF9A"
+            app:strokeWidth="1.5dp"
+            app:layout_constraintTop_toBottomOf="@id/headerLayout"
+            app:layout_constraintStart_toEndOf="@id/cardTemperatura"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="💧 Humedad"
+                    android:textColor="#DEFF9A"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvHumedadValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="-- %"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- CO2 CARD (Bottom-Left) -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardCO2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            app:cardBackgroundColor="#1E1E1E"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            app:strokeColor="#DEFF9A"
+            app:strokeWidth="1.5dp"
+            app:layout_constraintTop_toBottomOf="@id/cardTemperatura"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/cardTVOC"
+            app:layout_constraintHorizontal_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🍃 Nivel de CO2"
+                    android:textColor="#DEFF9A"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvCO2Value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="-- ppm"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- TVOC CARD (Bottom-Right) -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardTVOC"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            app:cardBackgroundColor="#1E1E1E"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            app:strokeColor="#DEFF9A"
+            app:strokeWidth="1.5dp"
+            app:layout_constraintTop_toBottomOf="@id/cardHumedad"
+            app:layout_constraintStart_toEndOf="@id/cardCO2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🧪 Nivel de TVOC"
+                    android:textColor="#DEFF9A"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvTVOCValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="-- mg"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- CONTROL PANEL -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardControl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:layout_marginTop="16dp"
+            app:cardBackgroundColor="#1E1E1E"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            app:strokeColor="#DEFF9A"
+            app:strokeWidth="1.5dp"
+            app:layout_constraintTop_toBottomOf="@id/cardCO2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="⚡ Panel de Control"
+                    android:textColor="#DEFF9A"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="#333333" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switchExtractor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Extractor de Aire (Manual)"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- CARD POMODORO -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardPomodoro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:layout_marginTop="12dp"
+            app:cardBackgroundColor="#1E1E1E"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            app:strokeColor="#DEFF9A"
+            app:strokeWidth="1.5dp"
+            app:layout_constraintTop_toBottomOf="@id/cardControl"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="⏱️ Temporizador Pomodoro"
+                    android:textColor="#DEFF9A"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="#333333" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Seleccionar Duración:"
+                    android:textColor="#CCCCCC"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="8dp" />
+
+                <RadioGroup
+                    android:id="@+id/rgPomodoroMinutes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_horizontal"
+                    android:layout_marginBottom="16dp">
+
+                    <RadioButton
+                        android:id="@+id/rbPomodoro5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="5 Min"
+                        android:textColor="#FFFFFF"
+                        android:buttonTint="#DEFF9A"
+                        android:layout_marginEnd="16dp"
+                        android:checked="true" />
+
+                    <RadioButton
+                        android:id="@+id/rbPomodoro15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="15 Min"
+                        android:textColor="#FFFFFF"
+                        android:buttonTint="#DEFF9A"
+                        android:layout_marginEnd="16dp" />
+
+                    <RadioButton
+                        android:id="@+id/rbPomodoro30"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="30 Min"
+                        android:textColor="#FFFFFF"
+                        android:buttonTint="#DEFF9A" />
+                </RadioGroup>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnPomodoroStart"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"
+                        android:text="Iniciar"
+                        android:textSize="12sp"
+                        android:paddingStart="4dp"
+                        android:paddingEnd="4dp"
+                        android:textColor="#DEFF9A"
+                        app:strokeColor="#DEFF9A" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnPomodoroPause"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"
+                        android:text="Pausar"
+                        android:textSize="12sp"
+                        android:paddingStart="4dp"
+                        android:paddingEnd="4dp"
+                        android:textColor="#FFCC00"
+                        app:strokeColor="#FFCC00" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnPomodoroStop"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Detener"
+                        android:textSize="12sp"
+                        android:paddingStart="4dp"
+                        android:paddingEnd="4dp"
+                        android:textColor="#FF4444"
+                        app:strokeColor="#FF4444" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- CARD ALARMA -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardAlarma"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:layout_marginTop="12dp"
+            app:cardBackgroundColor="#1E1E1E"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            app:strokeColor="#DEFF9A"
+            app:strokeWidth="1.5dp"
+            app:layout_constraintTop_toBottomOf="@id/cardPomodoro"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="⏰ Control de Alarma"
+                    android:textColor="#DEFF9A"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="#333333" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Configurar Hora:"
+                    android:textColor="#CCCCCC"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="8dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="16dp">
+
+                    <EditText
+                        android:id="@+id/etAlarmaHora"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:hint="07"
+                        android:textColorHint="#555555"
+                        android:textColor="#FFFFFF"
+                        android:backgroundTint="#DEFF9A"
+                        android:gravity="center"
+                        android:textSize="18sp"
+                        android:inputType="number"
+                        android:maxLength="2" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=":"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp" />
+
+                    <EditText
+                        android:id="@+id/etAlarmaMinuto"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:hint="00"
+                        android:textColorHint="#555555"
+                        android:textColor="#FFFFFF"
+                        android:backgroundTint="#DEFF9A"
+                        android:gravity="center"
+                        android:textSize="18sp"
+                        android:inputType="number"
+                        android:maxLength="2" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnGuardarAlarma"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Guardar"
+                        android:textColor="#000000"
+                        app:backgroundTint="#DEFF9A" />
+                </LinearLayout>
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switchAlarma"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Activar Alarma"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
