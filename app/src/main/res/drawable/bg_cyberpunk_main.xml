@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Fondo base oscuro -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/obsidian_black" />
+        </shape>
+    </item>
+    
+    <!-- Brillo radial sutil en el centro -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="radial"
+                android:centerX="0.5"
+                android:centerY="0.4"
+                android:gradientRadius="800dp"
+                android:startColor="#1A00D9FF"
+                android:centerColor="#050814"
+                android:endColor="#050814" />
+        </shape>
+    </item>
+    
+    <!-- Patrón de líneas sutil (simulado con un gradiente lineal repetitivo o simplemente un gradiente cruzado) -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="45"
+                android:startColor="#0500FFAA"
+                android:centerColor="#00000000"
+                android:endColor="#0500D9FF" />
+        </shape>
+    </item>
+</layer-list>

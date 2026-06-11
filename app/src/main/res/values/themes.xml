@@ -2,11 +2,39 @@
 <resources>
 
     <style name="Theme.EstacionAmbiental" parent="Theme.MaterialComponents.NoActionBar">
+        <!-- Colores Principales -->
+        <item name="colorPrimary">@color/accent_cyan</item>
+        <item name="colorPrimaryVariant">@color/accent_cyan</item>
+        <item name="colorOnPrimary">#000000</item>
+        <item name="colorSecondary">@color/accent_mint</item>
+        <item name="colorOnSecondary">#000000</item>
+        
+        <!-- Fondo de Ventana y Barra de Estado -->
+        <item name="android:windowBackground">@color/obsidian_black</item>
+        <item name="android:statusBarColor">@color/obsidian_black</item>
+        <item name="android:navigationBarColor">@color/obsidian_black</item>
+
+        <!-- Global MaterialCardView Style override for Cyberpunk -->
+        <item name="materialCardViewStyle">@style/Widget.App.CardView.Cyberpunk</item>
     </style>
 
-    <style name="Theme.EstacionAmbiental.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+    <!-- Estilo Cyberpunk para Tarjetas con Esquinas Recortadas -->
+    <style name="Widget.App.CardView.Cyberpunk" parent="Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.App.Card.Cyberpunk</item>
+        <item name="cardBackgroundColor">@color/charcoal_card</item>
+        <item name="strokeColor">@color/card_border</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="cardElevation">0dp</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.App.Card.Cyberpunk" parent="">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">12dp</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.App.Circle" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
     </style>
 
 </resources>

@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_cyber_grid"
+    android:padding="20dp"
+    tools:context=".ui.AirQualityActivity">
+
+    <!-- Header Section -->
+    <LinearLayout
+        android:id="@+id/headerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/btnBack"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:gravity="center"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:text="❮"
+            android:textColor="@color/accent_cyan"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:shadowColor="@color/accent_cyan"
+            android:shadowRadius="10"
+            android:clickable="true"
+            android:focusable="true"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DETALLES DE CALIDAD DEL AIRE IA"
+                android:textColor="@color/accent_cyan"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.05"
+                android:shadowColor="@color/accent_cyan"
+                android:shadowRadius="8" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- HUD CENTRAL DE IA -->
+    <RelativeLayout
+        android:id="@+id/hudContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintTop_toBottomOf="@id/headerLayout"
+        app:layout_constraintBottom_toTopOf="@id/tvAirQualityDescription"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Outer rotating ring (simulated) -->
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="280dp"
+            android:layout_height="280dp"
+            android:layout_centerInParent="true"
+            android:indeterminate="false"
+            android:max="100"
+            android:progress="85"
+            android:progressDrawable="@drawable/ring_cyberpunk_cyan" />
+
+        <!-- Inner rotating ring -->
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="240dp"
+            android:layout_height="240dp"
+            android:layout_centerInParent="true"
+            android:indeterminate="false"
+            android:max="100"
+            android:progress="60"
+            android:progressDrawable="@drawable/ring_cyberpunk_green"
+            android:rotation="180" />
+
+        <!-- Central Data Card (Styled as Circle using ShapeAppearanceOverlay) -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/circleStatusIndicator"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_centerInParent="true"
+            app:cardBackgroundColor="#0D00FFAA"
+            app:cardCornerRadius="80dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="1.5dp"
+            app:strokeColor="@color/accent_mint"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Circle">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <!-- Tech Brain Icon -->
+                <TextView
+                    android:id="@+id/tvStatusEmoji"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:shadowColor="@color/accent_mint"
+                    android:shadowRadius="15"
+                    android:text="❂"
+                    android:textColor="@color/accent_mint"
+                    android:textSize="56sp" />
+
+                <TextView
+                    android:id="@+id/tvAirQualityStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:lineSpacingMultiplier="0.9"
+                    android:shadowColor="@color/accent_mint"
+                    android:shadowRadius="15"
+                    android:text="CONECTANDO"
+                    android:textColor="@color/accent_mint"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </RelativeLayout>
+
+    <!-- Description -->
+    <TextView
+        android:id="@+id/tvAirQualityDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:gravity="center"
+        android:text="Clasificación IA: Evaluando entorno... Los niveles de gases detectados por la red neuronal del ESP32 están siendo procesados. Procesamiento TinyML en tiempo real."
+        android:textColor="@color/white_soft"
+        android:textSize="14sp"
+        android:lineSpacingMultiplier="1.2"
+        android:shadowColor="@color/accent_mint"
+        android:shadowRadius="4"
+        app:layout_constraintBottom_toTopOf="@id/cardMetadata"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- System Details Card -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardMetadata"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        app:cardBackgroundColor="@color/charcoal_card"
+        app:strokeColor="@color/accent_cyan"
+        app:strokeWidth="1.5dp"
+        app:layout_constraintBottom_toTopOf="@id/cardConnectionError"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DETALLES DEL SISTEMA"
+                    android:textColor="@color/white_soft"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.05"
+                    android:layout_alignParentStart="true" />
+                
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="•••"
+                    android:textColor="@color/accent_cyan"
+                    android:textSize="12sp"
+                    android:letterSpacing="0.2"
+                    android:layout_alignParentEnd="true" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/card_border"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Ruta Firebase:"
+                    android:textColor="@color/accent_cyan"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="estacion/actual/estado_ia"
+                    android:textColor="@color/white_soft"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="8dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Dispositivo TinyML:"
+                    android:textColor="@color/accent_cyan"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ESP32 (Edge Impulse NN)"
+                    android:textColor="@color/white_soft"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="8dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Última actualización:"
+                    android:textColor="@color/accent_cyan"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tvIALastUpdate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Esperando datos..."
+                    android:textColor="@color/white_soft"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Error Alert Card -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardConnectionError"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:cardBackgroundColor="#26FF4DFF"
+        app:strokeColor="@color/accent_magenta"
+        app:strokeWidth="1.5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="⚠"
+                android:textColor="@color/accent_magenta"
+                android:textSize="20sp"
+                android:layout_marginEnd="12dp"
+                android:shadowColor="@color/accent_magenta"
+                android:shadowRadius="10"/>
+
+            <TextView
+                android:id="@+id/tvErrorMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Fallo de conexión o el nodo no existe temporalmente en Firebase."
+                android:textColor="@color/accent_magenta"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:shadowColor="@color/accent_magenta"
+                android:shadowRadius="5"/>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

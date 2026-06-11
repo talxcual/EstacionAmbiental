@@ -1,0 +1,14 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Futuristic Home Icon with an open bottom -->
+    <path
+        android:pathData="M 12,3 L 3,11 L 5,11 L 5,20 L 19,20 L 19,11 L 21,11 Z M 10,20 L 10,14 L 14,14 L 14,20 Z"
+        android:strokeWidth="1.5"
+        android:strokeColor="#FFFFFF"
+        android:fillColor="#00000000"
+        android:strokeLineJoin="round" />
+</vector>

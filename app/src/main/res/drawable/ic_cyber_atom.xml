@@ -1,0 +1,47 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="32dp"
+    android:height="32dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Orbital 1 (Horizontal) -->
+    <group
+        android:pivotX="12"
+        android:pivotY="12"
+        android:rotation="0">
+        <path
+            android:pathData="M 12,6 A 10,4 0 1 0 12,18 A 10,4 0 1 0 12,6"
+            android:strokeWidth="1.2"
+            android:strokeColor="#00FFAA"
+            android:fillColor="#00000000" />
+    </group>
+
+    <!-- Orbital 2 (60 deg) -->
+    <group
+        android:pivotX="12"
+        android:pivotY="12"
+        android:rotation="60">
+        <path
+            android:pathData="M 12,6 A 10,4 0 1 0 12,18 A 10,4 0 1 0 12,6"
+            android:strokeWidth="1.2"
+            android:strokeColor="#00FFAA"
+            android:fillColor="#00000000" />
+    </group>
+
+    <!-- Orbital 3 (120 deg) -->
+    <group
+        android:pivotX="12"
+        android:pivotY="12"
+        android:rotation="120">
+        <path
+            android:pathData="M 12,6 A 10,4 0 1 0 12,18 A 10,4 0 1 0 12,6"
+            android:strokeWidth="1.2"
+            android:strokeColor="#00FFAA"
+            android:fillColor="#00000000" />
+    </group>
+
+    <!-- Nucleus Center Circle -->
+    <path
+        android:pathData="M 12,10 A 2,2 0 1 0 12,14 A 2,2 0 1 0 12,10"
+        android:fillColor="#00FFAA" />
+</vector>

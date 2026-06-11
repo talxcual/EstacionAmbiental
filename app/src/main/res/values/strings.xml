@@ -9,7 +9,7 @@
     <string name="text_or">O</string>
     <string name="button_google_signin">Iniciar Sesión con Google</string>
     <string name="status_auth_initial">Estado de Autenticación</string>
-    <string name="default_web_client_id">1039716438719-7g9hjsmka0l669ed9r5jopnevj5udcln.apps.googleusercontent.com</string>
+
 
     <string name="google_signin_cancelled">Inicio de sesión con Google cancelado.</string>
     <string name="google_signin_network_error">Error de red al iniciar sesión con Google. Revisa tu conexión.</string>

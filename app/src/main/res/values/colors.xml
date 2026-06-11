@@ -1,10 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- Cyberpunk Paleta Base -->
+    <color name="obsidian_black">#050814</color>
+    <color name="charcoal_card">#BF081428</color> <!-- rgba(8,20,40,.75) -->
+    <color name="card_border">#8000FFFF</color> <!-- rgba(0,255,255,.5) -->
+    
+    <!-- Cyberpunk Acentos -->
+    <color name="accent_mint">#00FFAA</color>
+    <color name="accent_mint_trans">#3300FFAA</color>
+    <color name="accent_cyan">#00D9FF</color>
+    <color name="accent_cyan_trans">#3300D9FF</color>
+    <color name="accent_magenta">#FF4DFF</color>
+    <color name="accent_red">#FF4DFF</color> <!-- Mapped for compatibility -->
+    <color name="accent_red_trans">#33FF4DFF</color>
+    <color name="accent_yellow">#38FFB7</color> <!-- Mapped for compatibility -->
+    <color name="accent_yellow_trans">#3338FFB7</color>
+    <color name="accent_blue">#008CFF</color>
+    
+    <!-- Cyberpunk Texto -->
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#7DB0D6</color>
+    <color name="white_soft">#D9F3FF</color>
+    <color name="transparent">#00000000</color>
+
+    <!-- Nuevos Acentos de Neon -->
+    <color name="neon_yellow">#FFEB3B</color>
+    <color name="neon_orange">#FF9100</color>
+    <color name="neon_magenta">#FF4DFF</color>
+    <color name="neon_cyan">#00D9FF</color>
+    <color name="neon_mint">#00FFAA</color>
+    <color name="neon_blue">#008CFF</color>
+    <color name="grid_color">#1A00D9FF</color>
 </resources>

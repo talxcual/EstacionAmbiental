@@ -93,28 +93,6 @@ class AuthActivity : AppCompatActivity() {
             signInWithGoogle()
         }
 
-        startNeonGlowAnimation()
-    }
-
-    private fun startNeonGlowAnimation() {
-        val viewEmailGlow = findViewById<android.view.View>(R.id.viewEmailGlow)
-        val viewPasswordGlow = findViewById<android.view.View>(R.id.viewPasswordGlow)
-
-        val emailAnimator = android.animation.ObjectAnimator.ofFloat(viewEmailGlow, "alpha", 0.3f, 1.0f).apply {
-            duration = 1500
-            repeatMode = android.animation.ValueAnimator.REVERSE
-            repeatCount = android.animation.ValueAnimator.INFINITE
-        }
-
-        val passwordAnimator = android.animation.ObjectAnimator.ofFloat(viewPasswordGlow, "alpha", 0.3f, 1.0f).apply {
-            duration = 1500
-            startDelay = 300
-            repeatMode = android.animation.ValueAnimator.REVERSE
-            repeatCount = android.animation.ValueAnimator.INFINITE
-        }
-
-        emailAnimator.start()
-        passwordAnimator.start()
     }
 
     private fun signInWithGoogle() {

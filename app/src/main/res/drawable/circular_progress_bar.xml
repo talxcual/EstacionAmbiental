@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Pista de Fondo del Anillo -->
+    <item android:id="@android:id/background">
+        <shape
+            android:innerRadiusRatio="3.2"
+            android:shape="ring"
+            android:thicknessRatio="18"
+            android:useLevel="false">
+            <solid android:color="#0AFFFFFF" />
+        </shape>
+    </item>
+    <!-- Progreso Activo (Rotado a -90 grados para empezar arriba) -->
+    <item android:id="@android:id/progress">
+        <rotate
+            android:fromDegrees="270"
+            android:toDegrees="270">
+            <shape
+                android:innerRadiusRatio="3.2"
+                android:shape="ring"
+                android:thicknessRatio="18"
+                android:useLevel="true">
+                <solid android:color="@color/accent_mint" />
+            </shape>
+        </rotate>
+    </item>
+</layer-list>

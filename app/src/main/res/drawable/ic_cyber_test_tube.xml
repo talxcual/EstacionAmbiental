@@ -1,0 +1,36 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="32dp"
+    android:height="32dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Rim/Lip of the test tube -->
+    <path
+        android:pathData="M 7,3 L 17,3"
+        android:strokeWidth="1.5"
+        android:strokeColor="#00FFAA"
+        android:strokeLineCap="round" />
+
+    <!-- Main Tube Body -->
+    <path
+        android:pathData="M 9,3 L 9,17 C 9,18.7 10.3,20 12,20 C 13.7,20 15,18.7 15,17 L 15,3"
+        android:strokeWidth="1.5"
+        android:strokeColor="#00FFAA"
+        android:fillColor="#00000000" />
+
+    <!-- Chemical Liquid Level -->
+    <path
+        android:pathData="M 10,12 L 14,12 L 14,17 C 14,18.1 13.1,19 12,19 C 10.9,19 10,18.1 10,17 Z"
+        android:fillColor="#3300FFAA" />
+
+    <!-- Bubbles -->
+    <path
+        android:pathData="M 10.5,14 a 1,1 0 1,0 2,0 a 1,1 0 1,0 -2,0"
+        android:fillColor="#00FFAA" />
+    <path
+        android:pathData="M 12.2,16 a 0.8,0.8 0 1,0 1.6,0 a 0.8,0.8 0 1,0 -1.6,0"
+        android:fillColor="#00FFAA" />
+    <path
+        android:pathData="M 10.3,9 a 0.7,0.7 0 1,0 1.4,0 a 0.7,0.7 0 1,0 -1.4,0"
+        android:fillColor="#00FFAA" />
+</vector>
