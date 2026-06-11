@@ -195,7 +195,7 @@ class CyberpunkChartView @JvmOverloads constructor(
     }
 
     private fun drawLegend(canvas: Canvas, xStart: Float, yStart: Float, width: Float) {
-        val labels = listOf("CO2 (Mint)", "TEMP (Cyan)", "HUM (Yellow)", "TVOC (Magenta)")
+        val labels = listOf("CO2", "TEMP", "HUM", "TVOC")
         val colors = listOf(colorCO2, colorTemp, colorHum, colorTVOC)
         
         textPaint.textSize = 22f

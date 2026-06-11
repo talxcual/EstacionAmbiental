@@ -1,9 +1,13 @@
 package com.ktasoporte.estacionambiental.ui
 
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.animation.LinearInterpolator
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -31,6 +35,12 @@ class AirQualityActivity : AppCompatActivity() {
     private lateinit var cardConnectionError: MaterialCardView
     private lateinit var tvErrorMessage: TextView
 
+    // Anillos HUD animados
+    private lateinit var pbOuterRing: ProgressBar
+    private lateinit var pbInnerRing: ProgressBar
+    private var outerRingAnimator: ObjectAnimator? = null
+    private var innerRingAnimator: ObjectAnimator? = null
+
     private lateinit var database: FirebaseDatabase
     private lateinit var iaRef: DatabaseReference
     private lateinit var connectionRef: DatabaseReference
@@ -51,6 +61,11 @@ class AirQualityActivity : AppCompatActivity() {
         tvIALastUpdate = findViewById(R.id.tvIALastUpdate)
         cardConnectionError = findViewById(R.id.cardConnectionError)
         tvErrorMessage = findViewById(R.id.tvErrorMessage)
+
+        // Inicializar y animar anillos HUD
+        pbOuterRing = findViewById(R.id.pbOuterRing)
+        pbInnerRing = findViewById(R.id.pbInnerRing)
+        startRingAnimations()
 
         // Configurar botón de volver
         btnBack.setOnClickListener {
@@ -178,8 +193,32 @@ class AirQualityActivity : AppCompatActivity() {
         cardConnectionError.visibility = View.VISIBLE
     }
 
+    private fun startRingAnimations() {
+        // Giro horario para el anillo exterior (lento)
+        outerRingAnimator = ObjectAnimator.ofFloat(pbOuterRing, "rotation", 0f, 360f).apply {
+            duration = 12000 // 12s por vuelta completa
+            repeatCount = ValueAnimator.INFINITE
+            interpolator = LinearInterpolator()
+        }
+        outerRingAnimator?.start()
+
+        // Giro anti-horario para el anillo interior (un poco más rápido)
+        innerRingAnimator = ObjectAnimator.ofFloat(pbInnerRing, "rotation", 180f, -180f).apply {
+            duration = 9000 // 9s por vuelta completa
+            repeatCount = ValueAnimator.INFINITE
+            interpolator = LinearInterpolator()
+        }
+        innerRingAnimator?.start()
+    }
+
+    private fun stopRingAnimations() {
+        outerRingAnimator?.cancel()
+        innerRingAnimator?.cancel()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
+        stopRingAnimations()
         // Liberar listeners para evitar memory leaks
         iaListener?.let { iaRef.removeEventListener(it) }
         connectionListener?.let { connectionRef.removeEventListener(it) }

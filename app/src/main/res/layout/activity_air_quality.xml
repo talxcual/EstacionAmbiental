@@ -68,6 +68,7 @@
 
         <!-- Outer rotating ring (simulated) -->
         <ProgressBar
+            android:id="@+id/pbOuterRing"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="280dp"
             android:layout_height="280dp"
@@ -79,6 +80,7 @@
 
         <!-- Inner rotating ring -->
         <ProgressBar
+            android:id="@+id/pbInnerRing"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="240dp"
             android:layout_height="240dp"
