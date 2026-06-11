@@ -2,6 +2,7 @@ package com.ktasoporte.estacionambiental.ui
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
+import android.media.MediaPlayer
 import android.app.AlertDialog
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -74,6 +75,7 @@ class DashboardActivity : AppCompatActivity() {
 
     // Extractor
     private lateinit var fanContainer: FrameLayout
+    private lateinit var tvFanIcon: TextView
     private lateinit var tvExtractorStatusLabel: TextView
     private var fanAnimator: ObjectAnimator? = null
 
@@ -83,7 +85,10 @@ class DashboardActivity : AppCompatActivity() {
     private lateinit var btnPomodoroPause: Button
     private lateinit var btnPomodoroStop: Button
     private lateinit var pbPomodoro: ProgressBar
+    private lateinit var pbPomodoroInner: ProgressBar
     private lateinit var tvPomodoroTime: TextView
+    private var pomodoroOuterAnimator: ObjectAnimator? = null
+    private var pomodoroInnerAnimator: ObjectAnimator? = null
 
     // Alarm Views
     private lateinit var layoutTimePickerTrigger: LinearLayout
@@ -124,10 +129,14 @@ class DashboardActivity : AppCompatActivity() {
     private lateinit var controlRef: DatabaseReference
     private lateinit var pomodoroRef: DatabaseReference
     private lateinit var alarmaRef: DatabaseReference
+    private lateinit var iaRef: DatabaseReference
 
     private var sensoresListener: ValueEventListener? = null
     private var controlListener: ValueEventListener? = null
     private var alarmaListener: ValueEventListener? = null
+    private var iaListener: ValueEventListener? = null
+
+    private var alarmMediaPlayer: MediaPlayer? = null
 
     // Estados Locales
     private var alarmaHora = 7
@@ -179,6 +188,7 @@ class DashboardActivity : AppCompatActivity() {
 
         // Inicializar Extractor
         fanContainer = findViewById(R.id.fanContainer)
+        tvFanIcon = findViewById(R.id.tvFanIcon)
         tvExtractorStatusLabel = findViewById(R.id.tvExtractorStatusLabel)
 
         // Inicializar Pomodoro
@@ -187,6 +197,7 @@ class DashboardActivity : AppCompatActivity() {
         btnPomodoroPause = findViewById(R.id.btnPomodoroPause)
         btnPomodoroStop = findViewById(R.id.btnPomodoroStop)
         pbPomodoro = findViewById(R.id.pbPomodoro)
+        pbPomodoroInner = findViewById(R.id.pbPomodoroInner)
         tvPomodoroTime = findViewById(R.id.tvPomodoroTime)
 
         // Inicializar Alarma
@@ -237,6 +248,7 @@ class DashboardActivity : AppCompatActivity() {
         controlRef = database.getReference("estacion/control/extractor_activo")
         pomodoroRef = database.getReference("estacion/control/pomodoro")
         alarmaRef = database.getReference("estacion/control/alarma")
+        iaRef = database.getReference("estacion/actual/estado_ia")
 
         // Crear canal de notificaciones y solicitar permisos
         createNotificationChannel()
@@ -251,6 +263,7 @@ class DashboardActivity : AppCompatActivity() {
         setupPomodoroControls()
         setupAlarmControls()
         setupAlarmSyncListener()
+        setupAirQualityIAListener()
 
         // Seleccionar pestaña por defecto (Home)
         selectTab(0)
@@ -372,7 +385,7 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun startFanAnimation() {
         if (fanAnimator == null) {
-            fanAnimator = ObjectAnimator.ofFloat(fanContainer, "rotation", 0f, 360f).apply {
+            fanAnimator = ObjectAnimator.ofFloat(tvFanIcon, "rotation", 0f, 360f).apply {
                 duration = 1500
                 repeatCount = ValueAnimator.INFINITE
                 interpolator = LinearInterpolator()
@@ -385,6 +398,66 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun stopFanAnimation() {
         fanAnimator?.cancel()
+        tvFanIcon.rotation = 0f
+    }
+
+    private fun startPomodoroAnimations() {
+        if (pomodoroOuterAnimator == null) {
+            pomodoroOuterAnimator = ObjectAnimator.ofFloat(pbPomodoro, "rotation", 0f, 360f).apply {
+                duration = 12000
+                repeatCount = ValueAnimator.INFINITE
+                interpolator = LinearInterpolator()
+            }
+        }
+        if (pomodoroInnerAnimator == null) {
+            pomodoroInnerAnimator = ObjectAnimator.ofFloat(pbPomodoroInner, "rotation", 180f, -180f).apply {
+                duration = 9000
+                repeatCount = ValueAnimator.INFINITE
+                interpolator = LinearInterpolator()
+            }
+        }
+
+        if (pomodoroOuterAnimator?.isRunning == false) {
+            pomodoroOuterAnimator?.start()
+        }
+        if (pomodoroInnerAnimator?.isRunning == false) {
+            pomodoroInnerAnimator?.start()
+        }
+    }
+
+    private fun pausePomodoroAnimations() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            pomodoroOuterAnimator?.pause()
+            pomodoroInnerAnimator?.pause()
+        } else {
+            pomodoroOuterAnimator?.cancel()
+            pomodoroInnerAnimator?.cancel()
+        }
+    }
+
+    private fun resumePomodoroAnimations() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            if (pomodoroOuterAnimator?.isPaused == true) {
+                pomodoroOuterAnimator?.resume()
+            } else if (pomodoroOuterAnimator?.isRunning == false) {
+                pomodoroOuterAnimator?.start()
+            }
+
+            if (pomodoroInnerAnimator?.isPaused == true) {
+                pomodoroInnerAnimator?.resume()
+            } else if (pomodoroInnerAnimator?.isRunning == false) {
+                pomodoroInnerAnimator?.start()
+            }
+        } else {
+            startPomodoroAnimations()
+        }
+    }
+
+    private fun stopPomodoroAnimations() {
+        pomodoroOuterAnimator?.cancel()
+        pomodoroInnerAnimator?.cancel()
+        pbPomodoro.rotation = 0f
+        pbPomodoroInner.rotation = 180f
     }
 
     private fun setupControlWriter() {
@@ -458,6 +531,11 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun startPomodoroLocal(seconds: Long) {
         pomodoroTimer?.cancel()
+        if (isPomodoroPaused) {
+            resumePomodoroAnimations()
+        } else {
+            startPomodoroAnimations()
+        }
         isPomodoroRunning = true
         isPomodoroPaused = false
 
@@ -471,6 +549,7 @@ class DashboardActivity : AppCompatActivity() {
                 isPomodoroRunning = false
                 pomodoroSecondsRemaining = pomodoroTotalSeconds
                 updatePomodoroUI()
+                stopPomodoroAnimations()
                 Toast.makeText(this@DashboardActivity, "¡Pomodoro finalizado!", Toast.LENGTH_SHORT).show()
             }
         }.start()
@@ -481,6 +560,7 @@ class DashboardActivity : AppCompatActivity() {
             pomodoroTimer?.cancel()
             isPomodoroRunning = false
             isPomodoroPaused = true
+            pausePomodoroAnimations()
         }
     }
 
@@ -490,6 +570,7 @@ class DashboardActivity : AppCompatActivity() {
         isPomodoroPaused = false
         pomodoroSecondsRemaining = pomodoroTotalSeconds
         updatePomodoroUI()
+        stopPomodoroAnimations()
     }
 
     private fun updatePomodoroUI() {
@@ -553,6 +634,52 @@ class DashboardActivity : AppCompatActivity() {
             }
         }
         alarmaRef.addValueEventListener(alarmaListener!!)
+    }
+
+    private fun setupAirQualityIAListener() {
+        iaListener = object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                try {
+                    val estado = snapshot.getValue(String::class.java)
+                    if (estado != null && estado.uppercase(Locale.getDefault()) == "AIRE_CONTAMINADO") {
+                        if (alarmMediaPlayer == null) {
+                            alarmMediaPlayer = MediaPlayer.create(this@DashboardActivity, R.raw.alarma).apply {
+                                isLooping = true
+                            }
+                        }
+                        if (alarmMediaPlayer?.isPlaying == false) {
+                            alarmMediaPlayer?.start()
+                            Log.d("DashboardActivity", "Alarma activada por aire contaminado.")
+                        }
+                    } else {
+                        stopAlarmSound()
+                    }
+                } catch (e: Exception) {
+                    Log.e("DashboardActivity", "Error al procesar estado de IA para alarma", e)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.w("DashboardActivity", "Error al escuchar estado de IA: ${error.message}")
+            }
+        }
+        iaRef.addValueEventListener(iaListener!!)
+    }
+
+    private fun stopAlarmSound() {
+        alarmMediaPlayer?.let {
+            try {
+                if (it.isPlaying) {
+                    it.stop()
+                }
+            } catch (e: Exception) {
+                Log.e("DashboardActivity", "Error al detener MediaPlayer", e)
+            } finally {
+                it.release()
+            }
+        }
+        alarmMediaPlayer = null
+        Log.d("DashboardActivity", "Alarma desactivada.")
     }
 
     private fun saveAlarmCommand() {
@@ -809,7 +936,13 @@ class DashboardActivity : AppCompatActivity() {
         sensoresListener?.let { sensoresRef.removeEventListener(it) }
         controlListener?.let { controlRef.removeEventListener(it) }
         alarmaListener?.let { alarmaRef.removeEventListener(it) }
+        iaListener?.let { iaRef.removeEventListener(it) }
+        
         pomodoroTimer?.cancel()
         fanAnimator?.cancel()
+        pomodoroOuterAnimator?.cancel()
+        pomodoroInnerAnimator?.cancel()
+        
+        stopAlarmSound()
     }
 }

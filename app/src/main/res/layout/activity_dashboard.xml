@@ -637,6 +637,7 @@
                                     
                                 <!-- Outer decorative ring -->
                                 <ProgressBar
+                                    android:id="@+id/pbPomodoroInner"
                                     style="?android:attr/progressBarStyleHorizontal"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
