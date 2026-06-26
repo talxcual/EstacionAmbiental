@@ -16,3 +16,7 @@ local.properties
 *.png
 /emulator_screencap.png
 /emulator_screencap2.png
+
+# Security
+app/google-services.json
+
