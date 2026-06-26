@@ -56,3 +56,15 @@ Ha sido refactorizada a partir de un proyecto previo para limpiar todo el domini
 2. **Compilar y Ejecutar:**
    * Abre el proyecto en **Android Studio**.
    * Espera la sincronización de Gradle y ejecuta la app.
+
+## 📱 Capturas de Pantalla
+
+<div align="center">
+  <img src="screenshots/screen1.png" width="200" style="margin: 10px;" />
+  <img src="screenshots/screen2.png" width="200" style="margin: 10px;" />
+  <img src="screenshots/screen3.png" width="200" style="margin: 10px;" />
+  <br>
+  <img src="screenshots/screen4.png" width="200" style="margin: 10px;" />
+  <img src="screenshots/screen5.png" width="200" style="margin: 10px;" />
+  <img src="screenshots/screen6.png" width="200" style="margin: 10px;" />
+</div>
