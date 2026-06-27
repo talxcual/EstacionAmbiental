@@ -57,14 +57,3 @@ Ha sido refactorizada a partir de un proyecto previo para limpiar todo el domini
   * **Firebase Authentication:** Registro e Inicio de sesión.
   * **Cloud Firestore:** Gestión de perfiles y marcas de tiempo de usuario.
   * **Firebase Realtime Database (BOM):** Listo para telemetría en tiempo real.
-
-## 🔧 Configuración e Instalación
-
-1. **Configurar Firebase:**
-   * Registra la aplicación en tu consola de Firebase con el paquete: `com.ktasoporte.estacionambiental`.
-   * Descarga el archivo `google-services.json` y colócalo en la carpeta `/app` del proyecto.
-   * Habilita **Authentication** y **Cloud Firestore** en la consola de Firebase.
-
-2. **Compilar y Ejecutar:**
-   * Abre el proyecto en **Android Studio**.
-   * Espera la sincronización de Gradle y ejecuta la app.
